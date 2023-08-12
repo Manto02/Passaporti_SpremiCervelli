@@ -1,52 +1,21 @@
 package it.univr.datatype;
 
 public class Person  {
-    String nome, codice_fiscale, cognome, luogo, data, categoria_appartenenza, numero_tessera_sanitaria;
+    String name, tax_id_code, surname, place, date, belonging_category, health_card_number;
 
-    public String getNome() {
-        return nome;
-    }
-
-    public String getCodice_fiscale() {
-        return codice_fiscale;
-    }
-
-    public String getCognome() {
-        return cognome;
-    }
-
-    public String getLuogo() {
-        return luogo;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public String getCategoria_appartenenza() {
-        return categoria_appartenenza;
-    }
-
-    public String getNumero_tessera_sanitaria() {
-        return numero_tessera_sanitaria;
-    }
-
-    public Person(String codice_fiscale, String numero_tessera_sanitaria, String cognome, String nome, String luogo, String data, String categoria_appartenenza) {
-
-        this.nome = nome;
-        this.cognome = cognome;
-        this.codice_fiscale = codice_fiscale;
-        this.luogo = luogo;
-        this.data = data;
-        this.categoria_appartenenza = categoria_appartenenza;
-        this.numero_tessera_sanitaria = numero_tessera_sanitaria;
+    public Person(String tax_id_code, String health_card_number, String surname, String name, String place, String date, String belonging_category) {
+        this.tax_id_code = tax_id_code;
+        this.health_card_number = health_card_number;
+        this.surname = surname;
+        this.name = name;
+        this.place = place;
+        this.date = date;
+        this.belonging_category = belonging_category;
 
     }
 
     public String toString(){
-        String result = "";
-        result = nome + "\t" + cognome+ "\t" + luogo + "\t"+ data.toString() + "\t"+ codice_fiscale + "\t"+ numero_tessera_sanitaria + "\t"+ categoria_appartenenza;
-
-        return result;
+        return name + "\t" + surname+ "\t" + place + "\t"+ date.toString()
+                + "\t"+ tax_id_code + "\t"+ health_card_number + "\t"+ belonging_category;
     }
 }

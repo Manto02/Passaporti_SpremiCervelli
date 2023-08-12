@@ -1,5 +1,7 @@
 
+import it.univr.*;
 import it.univr.datatype.*;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -129,7 +131,7 @@ public class Main {
             "Conti",
             "Ricci",
             "Bruno",
-            "De Luca",
+            "Mantovani",
             "Moretti",
             "Marino",
             "Greco",
@@ -156,14 +158,14 @@ public class Main {
             "Farina",
             "Gentile",
             "Caruso",
-            "Morelli",
+            "Menegatti",
             "Ferri",
             "Testa",
             "Ferraro",
             "Pellegrini",
             "Grassi",
             "Rossetti",
-            "D'Angelo",
+            "Bologna",
             "Bernardi",
             "Mazza",
             "Rizzi",
@@ -211,8 +213,8 @@ public class Main {
         }
     }
 
-    public static void createNewTable(){
-        String url = "jdbc:sqlite:/home/manto/Scrivania/Database/demografia_cittadini.db";
+    public static void createNewTable(String filename){
+        String url = "jdbc:sqlite:/home/manto/Scrivania/Database/" + filename;
 
         String sql = "CREATE TABLE IF NOT EXISTS demografia (" +
                 "CODICE_FISCALE text," +
@@ -241,36 +243,37 @@ public class Main {
         //createNewTable();
         ArrayList people = new ArrayList<>();
         Random random = new Random();
-        String nome;
-        String codice_fiscale;
-        String cognome;
-        String luogo;
-        String categoria_appartenenza = "";
-        String numero_tessera_sanitaria = "";
-        //createNewDatabase("demografia_cittadini");
-        //createNewTable();
+        String name;
+        String tax_id_code;
+        String surname;
+        String place;
+        String belonging_category = "";
+        String health_card_number = "";
+
         for (int i = 0; i < 100; i++) {
-            nome = nomi[random.nextInt(100)];
-            cognome = cognomi[random.nextInt(50)];
-            luogo = luoghi[random.nextInt(20)];
+            name = nomi[random.nextInt(100)];
+            surname = cognomi[random.nextInt(50)];
+            place = luoghi[random.nextInt(20)];
             Data date;
+
             do {
-                date = new Data(random.nextInt(32 -1) + 1, random.nextInt(12 - 1) + 1, random.nextInt(2015 - 1960) + 1960);
+                date = new Data(random.nextInt(32 -1) + 1, random.nextInt(13 - 1) + 1, random.nextInt(2015 - 1960) + 1960);
             }while (!date.isCorrect());
+
             for (int j = 0; j < 20; j++) {
-                numero_tessera_sanitaria += String.valueOf(random.nextInt(10));
+                health_card_number += String.valueOf(random.nextInt(10));
             }
-            codice_fiscale = Data.buildCodiceFiscale(cognome, nome, date);
-            people.add(new Person(codice_fiscale, numero_tessera_sanitaria, cognome, nome, luogo, date.toString(), categoria_appartenenza));
-            numero_tessera_sanitaria = "";
+
+            tax_id_code = Data.buildTaxIdCode(surname, name, date);
+
+            people.add(new Person(tax_id_code, health_card_number, surname, name, place, date.toString(), belonging_category));
+
+            health_card_number = "";
         }
-        /*for (Person person: people) {
-            System.out.println(person.toString());
-        }*/
+
         people.forEach(person -> System.out.println(person.toString()));
         System.out.println("Database riempito con 100 utenti");
-        //DatabaseMethods db = new DatabaseMethods();
-        //db.selectAll();
+
     }
 }
 
