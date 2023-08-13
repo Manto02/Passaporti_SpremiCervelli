@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.progettosi.RegistrationController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane prefHeight="39.0" prefWidth="200.0" />
+            <TextField fx:id="inputName" prefHeight="0.0" prefWidth="200.0" promptText="Nome">
+               <cursor>
+                  <Cursor fx:constant="CROSSHAIR" />
+               </cursor></TextField>
+            <Pane prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="inputSurname" promptText="Cognome" />
+            <Pane prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="inputSecurityNumber" prefHeight="0.0" prefWidth="200.0" promptText="Codice Fiscale" />
+            <Pane prefHeight="25.0" prefWidth="200.0" />
+            <TextField fx:id="inputCardNumber" promptText="Numero Tessera Sanitaria" />
+            <Pane prefHeight="120.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="sendButton" layoutX="75.0" layoutY="48.0" mnemonicParsing="false" onAction="#onSendButtonClick" text="Send">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Label fx:id="confirmationLabel" alignment="CENTER" layoutY="98.0" prefHeight="16.0" prefWidth="202.0" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </center>
+   <right>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="go Back" />
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>
