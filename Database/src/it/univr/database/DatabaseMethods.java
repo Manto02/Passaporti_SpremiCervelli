@@ -1,12 +1,14 @@
 package it.univr.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
-public class DatabaseMethods {
+public abstract class DatabaseMethods {
 
     //metodo per la connessione
-    public static Connection connect() {
-        String url = "jdbc:sqlite:/home/manto/Scrivania/Database/demografia_cittadini.db";
+    public Connection connect() {
+        String cwd = System.getProperty("user.dir");
+        String url = "jdbc:sqlite:" + cwd + "/database.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -16,16 +18,75 @@ public class DatabaseMethods {
         return conn;
     }
 
+    public void createNewDatabase(String fileName) {
+        String cwd = System.getProperty("user.dir");
+        String url = "jdbc:sqlite:" + cwd + "/" + fileName;
+
+        try (Connection conn = DriverManager.getConnection(url)) {
+            if (conn != null) {
+                DatabaseMetaData meta = conn.getMetaData();
+                System.out.println("The driver name is " + meta.getDriverName());
+                System.out.println("A new database has been created.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public abstract void createNewTable(String table_name);
+
+    //genera una stringa con le colonne o la stringa coi ? per i valori da inserire a seconda dei parametri passati
+    private String getParameters(TypeOfSqlString string_type, String[] database_columns){
+        String result = "";
+        if(string_type == TypeOfSqlString.INSERT) {
+            result += "(";
+            for (int i = 0; i < database_columns.length; i++) {
+                result += database_columns[i];
+                if (i != database_columns.length - 1)
+                    result += ",";
+            }
+            return result + ")";
+        }
+        else if(string_type == TypeOfSqlString.QUESTION_MARK){
+            result += "(";
+            for (int i = 0; i < database_columns.length; i++) {
+                result += "?";
+                if (i != database_columns.length - 1)
+                    result += ",";
+            }
+            return result + ")";
+        }
+        else if(string_type == TypeOfSqlString.SELECT){
+            for (int i = 0; i < database_columns.length; i++) {
+                result += database_columns[i];
+                if (i != database_columns.length - 1)
+                    result += ", ";
+            }
+            return result;
+        }
+        else {
+            for (int i = 0; i < database_columns.length; i++) {
+                result += database_columns[i] + " = ?";
+                if (i != database_columns.length - 1)
+                    result += ", ";
+            }
+            return result;
+        }
+    }
+
     //metodo inserimento dati nella tabella
-    public void insert(String table_name, String nome, int simpatia) throws SQLException {
+    public void insert(String table_name, String[] database_columns, String... parameters) throws SQLException {
         //stringa di comando
-        String sql = "INSERT INTO" + table_name + "(nome, simpatia) VALUES (?, ?)";
+        String sql = "INSERT INTO " + table_name + getParameters(TypeOfSqlString.INSERT, database_columns)
+                +  " VALUES" + getParameters(TypeOfSqlString.QUESTION_MARK, database_columns);
 
         try (Connection conn = connect()) {
             //Preparestatement serve per l'assegnazione di parametri
             PreparedStatement psmt = conn.prepareStatement(sql);
-            psmt.setString(1, nome);
-            psmt.setInt(2, simpatia);
+            for (int i = 0; i < parameters.length; i++) {
+                psmt.setString(i + 1, parameters[i]);
+            }
             psmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -33,73 +94,43 @@ public class DatabaseMethods {
 
     }
 
-    //metodo per stampare dati dal database corrispondenti ai parametri
-    public void selectDataFromDatabase(String table_name, String... parameters){
-
-        String sql = "SELECT nome, cognome FROM " + table_name;
-
-        try(Connection conn = connect()){
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-
-            while (rs.next()){
-                System.out.println(
-                        rs.getString("nome") + "\t" +
-                                rs.getInt("simpatia"));
-            }
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    //metodo per filtraggio dati
-    public void getSimpatiaGreaterThan(String table_name, int range){
-        String sql = "SELECT nome, simpatia FROM " + table_name + " WHERE simpatia > ?";
-
-        try(Connection conn = connect()){
-            PreparedStatement pr = conn.prepareStatement(sql);
-            pr.setInt(1, range);
-            ResultSet rs = pr.executeQuery();
-
-            while(rs.next()){
-                System.out.println(rs.getString("nome") + "\t" + rs.getInt("simpatia"));
-            }
-        }catch(SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
     //metodo per aggiornare i dati
+    public void update(String table_name, String... columns_want_to_update) {
 
-    public void update(String table_name, int id, String name, double capacity) {
-        String sql = "UPDATE " + table_name + " SET nome = ? , "
-                + "simpatia = ? "
-                + "WHERE id = ?";
+        String sql_parameters = getParameters(TypeOfSqlString.UPDATE, columns_want_to_update);
+        String sql = "UPDATE " + table_name + " SET " + sql_parameters;
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setString(1, name);
-            pstmt.setDouble(2, capacity);
-            pstmt.setInt(3, id);
+            for (int i = 0; i < columns_want_to_update.length; i++) {
+                pstmt.setString(i + 1, columns_want_to_update[i]);
+            }
             // update
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
+    public abstract <T extends Comparable<T>> ArrayList<T> selectData(String table_name, String... database_columns);
+
+    public abstract <T extends Comparable<T>> ArrayList<T>  selectFilteredData(String table_name, String operator, String param, String compare);
+
     //metodo per eliminare dati
-    public void delete(String table_name, int id) {
-        String sql = "DELETE FROM " + table_name + " WHERE id = ?";
+    public void delete(String table_name, String... columns_want_delete) {
+        String sql_parameters = getParameters(TypeOfSqlString.DELETE, columns_want_delete);
+        String sql = "DELETE FROM " + table_name + " WHERE " + sql_parameters;
 
         try (Connection conn = connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             // set the corresponding param
-            pstmt.setInt(1, id);
+            for (int i = 0; i < columns_want_delete.length; i++) {
+                pstmt.setString(i + 1, columns_want_delete[i]);
+            }
             // execute the delete statement
             pstmt.executeUpdate();
 

@@ -38,17 +38,24 @@ public class Data{ // campi (fields) degli oggetti di tipo Date (stato)
                 return false;
             return true;
         }
+
+        public boolean isAdult(){
+            boolean result = true;
+            if(2023 - year < 18)
+                result = false;
+            return result;
+        };
     static char[] tax_id_month = {'A', 'B', 'C', 'D', 'E', 'H', 'L', 'M', 'P', 'R', 'S', 'T'};
 
     public static String buildTaxIdCode(String surname, String name, Data date){
-        String code = "";
+        String code;
         String code_surname = "";
         String code_name = "";
         String code_year = "";
-        String code_day = "";
-        String code_month = "";
-        String code_city = "";
-        String control_code = "";
+        String code_day;
+        String code_month;
+        String code_city;
+        String control_code;
         Random random = new Random();
 
         int year = date.getYear();
@@ -61,28 +68,26 @@ public class Data{ // campi (fields) degli oggetti di tipo Date (stato)
 
         if(date.getDay() >= 10)
             code_day = String.valueOf(date.getDay());
-        else{
+        else
             code_day = "0" + String.valueOf(date.getDay());
-        }
 
         String sur_name = surname.toUpperCase();
         int range = surname.length();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
             code_surname += sur_name.charAt(random.nextInt(range));
-        }
 
         String name_ = name.toUpperCase();
         range = name.length();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
             code_name += name_.charAt(random.nextInt(range));
-        }
 
         control_code = String.valueOf(tax_id_month[random.nextInt(12)]);
 
-        code_city = String.valueOf(tax_id_month[random.nextInt(12)])
+        code_city = tax_id_month[random.nextInt(12)]
                 + String.valueOf(random.nextInt(999 - 100) + 100);
 
         code = code_surname + code_name + code_year + code_month + code_day + code_city + control_code;
+
         return code;
     };
 }
