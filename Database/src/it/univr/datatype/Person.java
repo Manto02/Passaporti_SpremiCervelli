@@ -213,7 +213,7 @@ public class Person  {
         this.date = date;
         this.belonging_category = belonging_category;
 
-        databaseMethods.insert("demografia", PeopleEnum.getDatabaseColumns(), tax_id_code, health_card_number,
+        databaseMethods.insert(databaseMethods.getTableName(), PeopleEnum.getDatabaseColumns(), tax_id_code, health_card_number,
                 surname, name, place, date, belonging_category);
 
     }
@@ -267,6 +267,7 @@ public class Person  {
            return new Person(tax_id_code, health_card_number, surname, name, place, date.toString(), belonging_category);
 
     }
+
 
     public String toString(){
         return name + "\t" + surname+ "\t" + place + "\t"+ date.toString()

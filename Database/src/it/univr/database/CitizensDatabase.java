@@ -2,13 +2,13 @@ package it.univr.database;
 
 import it.univr.datatype.Citizens;
 import it.univr.datatype.CitizensEnum;
-import it.univr.datatype.Staff;
-import it.univr.datatype.StaffEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CitizensDatabase extends DatabaseMethods{
+public class CitizensDatabase extends DatabaseMethods implements Login{
+
+    String table;
     @Override
     public void createNewTable(String table_name) {
 
@@ -27,6 +27,8 @@ public class CitizensDatabase extends DatabaseMethods{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
+        table = table_name;
     }
 
     @Override
@@ -81,5 +83,36 @@ public class CitizensDatabase extends DatabaseMethods{
         }
 
         return citizens;
+    }
+
+    @Override
+    public boolean isInDatabase(String username, String password) {
+
+        String sql = "SELECT * FROM " + getTableName() + " WHERE USERNAME = " + username +" ?";
+        Citizens citizen = null;
+
+        try(Connection conn = connect()){
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, username);
+            ResultSet rs = pr.executeQuery();
+            ArrayList<String> data = new ArrayList<>();
+
+            while (rs.next()){
+                for (int i = 0; i < CitizensEnum.getDatabaseColumns().length; i++) {
+                    data.add(rs.getString(CitizensEnum.getDatabaseColumns()[i]));
+                }
+                citizen = new Citizens(data);
+            }
+
+            if(citizen == null)
+                return false;
+
+            if (!(citizen.getPassword().equals(password)))
+                return false;
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
 }

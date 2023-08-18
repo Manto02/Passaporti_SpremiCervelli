@@ -12,12 +12,20 @@ public class Citizens {
     String username, password;
     DatabaseMethods databaseMethods = new CitizensDatabase();
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public Citizens(String username, String password) throws SQLException {
 
         this.username = username;
         this.password = password;
 
-        databaseMethods.insert("cittadini", CitizensEnum.getDatabaseColumns(), username, password);
+        databaseMethods.insert(databaseMethods.getTableName(), CitizensEnum.getDatabaseColumns(), username, password);
     }
 
     public Citizens(ArrayList<String> parameters) throws SQLException {

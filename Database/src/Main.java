@@ -23,6 +23,7 @@ public class Main {
         DatabaseMethods peopledb = new PeopleDatabase();
         DatabaseMethods staffdb = new StaffDatabase();
         DatabaseMethods citizendb = new CitizensDatabase();
+        peopledb.createNewTable("demografia");
         staffdb.createNewTable("staff");
         citizendb.createNewTable("cittadini");
 
@@ -46,7 +47,7 @@ public class Main {
 
         //staff.forEach(st -> System.out.println(st.toString()));
         System.out.println("PERSONA:");
-        people = peopledb.selectFilteredData("demografia", "=", "CODICE_FISCALE", "LGEACI74P23B243P");
+        people = peopledb.selectFilteredData("demografia", "=", "CODICE_FISCALE", "CRIOOO60C01E847D");
         people.forEach(person -> System.out.println(person.toString()));
 
         System.out.println("\nSTAFF");
@@ -54,8 +55,10 @@ public class Main {
         staff.forEach(st -> System.out.println(st.toString()));
 
         System.out.println("\nCITTADINO:");
-        citizens = citizendb.selectFilteredData("cittadini", "=", "USERNAME", "RIRORA76L23R154A");
+        citizens = citizendb.selectFilteredData("cittadini", "=", "USERNAME", "CRIOOO60C01E847D");
         citizens.forEach(st -> System.out.println(st.toString()));
+
+        Person person = (Person) people.get(0);
 
 
 

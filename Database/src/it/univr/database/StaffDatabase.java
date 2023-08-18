@@ -1,12 +1,14 @@
 package it.univr.database;
 
+import it.univr.datatype.Citizens;
+import it.univr.datatype.CitizensEnum;
 import it.univr.datatype.Staff;
 import it.univr.datatype.StaffEnum;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class StaffDatabase extends DatabaseMethods{
+public class StaffDatabase extends DatabaseMethods implements Login{
 
     public void createNewTable(String table_name){
 
@@ -80,5 +82,36 @@ public class StaffDatabase extends DatabaseMethods{
         }
 
         return staff;
+    }
+
+    @Override
+    public boolean isInDatabase(String username, String password) {
+
+        String sql = "SELECT * FROM " + getTableName() + " WHERE USERNAME = " + username +" ?";
+        Staff staff = null;
+
+        try(Connection conn = connect()){
+            PreparedStatement pr = conn.prepareStatement(sql);
+            pr.setString(1, username);
+            ResultSet rs = pr.executeQuery();
+            ArrayList<String> data = new ArrayList<>();
+
+            while (rs.next()){
+                for (int i = 0; i < CitizensEnum.getDatabaseColumns().length; i++) {
+                    data.add(rs.getString(CitizensEnum.getDatabaseColumns()[i]));
+                }
+                staff = new Staff(data);
+            }
+
+            if(staff == null)
+                return false;
+
+            if (!(staff.getPassword().equals(password)))
+                return false;
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
 }

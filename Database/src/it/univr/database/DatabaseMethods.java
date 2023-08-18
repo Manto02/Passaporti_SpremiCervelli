@@ -138,4 +138,14 @@ public abstract class DatabaseMethods {
             System.out.println(e.getMessage());
         }
     }
+
+    public String getTableName(){
+        if(this instanceof CitizensDatabase)
+            return "cittadini";
+        else if (this instanceof PeopleDatabase) {
+            return "demografia";
+        }
+        else
+            return "staff";
+    }
 }

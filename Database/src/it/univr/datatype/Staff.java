@@ -12,13 +12,25 @@ public class Staff {
     String username, password, luogo;
     DatabaseMethods databaseMethods = new StaffDatabase();
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getLuogo() {
+        return luogo;
+    }
+
     public Staff(String username, String password, String luogo) throws SQLException {
 
         this.username = username;
         this.password = password;
         this.luogo = luogo;
 
-        databaseMethods.insert("staff", StaffEnum.getDatabaseColumns(), username, password, luogo);
+        databaseMethods.insert(databaseMethods.getTableName(), StaffEnum.getDatabaseColumns(), username, password, luogo);
     }
 
     public Staff(ArrayList<String> parameters) throws SQLException {
