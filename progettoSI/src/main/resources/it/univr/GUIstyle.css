@@ -1,0 +1,73 @@
+#pane{
+    -fx-background-radius: 360;
+    -fx-border-color: violet; /* set border to red*/
+    -fx-border-width: 3; /* border width 3px */
+}
+
+#frontpane{
+    -fx-background-color: green,white,red,derive(cadetblue,16%),derive(cadetblue,19%),derive(cadetblue,22%),derive(cadetblue,25%),derive(cadetblue,28%),derive(cadetblue,31%),derive(cadetblue,34%);
+    -fx-background-insets: 0 ,5,10,15,40,50, 60,90, 100,110;
+
+    -fx-border-color: derive(slateblue, 36%); /* set border to red*/
+    -fx-border-width: 2;
+}
+
+
+.text-field {
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 14;
+    -fx-border-width: 3;
+    -fx-text-alignment: left;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+
+
+}
+
+.password-field{
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 14;
+    -fx-border-width: 3;
+    -fx-text-alignment: left;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+
+}
+
+.button{
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: #8f9eb8;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 6;
+    -fx-padding : 5;
+
+}
+.label{
+    -fx-alignment: center;
+
+}
+.check-box .box{
+    -fx-background-color: #a9a9a9 , #a9a9 , #a9a;
+    -fx-border-color: #8f9eb8;
+    -fx-border-width: 3;
+
+}
+
+.check-box{
+    -fx-background-radius: 15;
+
+
+}
+.check-box >.box{
+    -fx-padding: -2px;
+}
+.check-box:selected .mark{
+
+    -fx-background-color: white;
+}
+.check-box:selected .box{
+    -fx-background-color:#c8e39f ;
+}

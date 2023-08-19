@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.RegistrationController">
+   <children>
+      <TextField fx:id="input_name" layoutX="215.0" layoutY="30.0" promptText="Nome" />
+      <TextField fx:id="input_surname" layoutX="215.0" layoutY="76.0" promptText="Cognome" />
+      <TextField fx:id="input_date_of_birth" layoutX="215.0" layoutY="122.0" promptText="Data di nascita" />
+      <TextField fx:id="input_place_of_birth" layoutX="215.0" layoutY="168.0" promptText="Luogo di nascita" />
+      <TextField fx:id="input_security_number" layoutX="215.0" layoutY="214.0" promptText="Codice fiscale" />
+      <Button layoutX="269.0" layoutY="264.0" mnemonicParsing="false" onAction="#onSendButtonClick" text="Button" />
+      <Button layoutX="24.0" layoutY="18.0" mnemonicParsing="false" onAction="#onGoBackButtonClick" text="Button" />
+      <Label layoutX="283.0" layoutY="326.0" text="Label" visible="false" />
+   </children>
+</AnchorPane>

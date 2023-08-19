@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="561.0" prefWidth="927.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.AestheticDatePicker">
+   <children>
+      <AnchorPane layoutX="53.0" layoutY="74.0" prefHeight="430.0" prefWidth="775.0">
+         <children>
+            <GridPane fx:id="day_grid" alignment="CENTER" hgap="5" layoutX="5.0" layoutY="92.0" maxHeight="300.0" minHeight="300.0" prefHeight="300.0" prefWidth="721.0" vgap="5">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+                  <RowConstraints fillHeight="false" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+                  <RowConstraints fillHeight="false" maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="ALWAYS" />
+               </rowConstraints>
+            </GridPane>
+            <Pane layoutX="594.0" layoutY="16.0">
+               <children>
+                  <Button fx:id="month_back" defaultButton="true" mnemonicParsing="false" onAction="#MonthBack" prefHeight="12.0" prefWidth="39.0" text="←">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="month_ahead" defaultButton="true" layoutX="60.0" mnemonicParsing="false" onAction="#MonthAhead" prefHeight="29.0" prefWidth="26.0" text="→">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Label fx:id="selected_date" layoutX="241.0" layoutY="7.0">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="scroll_menu" layoutX="56.0" layoutY="20.0" prefHeight="24.0" prefWidth="136.0" />
+            <Label layoutX="34.0" layoutY="61.0" text="Lunedì" />
+            <Label layoutX="136.0" layoutY="62.0" text="Martedì" />
+            <Label layoutX="241.0" layoutY="62.0" text="Mercoledì">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="340.0" layoutY="61.0" text="Giovedì" />
+            <Label layoutX="432.0" layoutY="61.0" text="Venerdì" />
+            <Label layoutX="550.0" layoutY="61.0" text="Sabato" />
+            <Label layoutX="644.0" layoutY="61.0" prefHeight="16.0" prefWidth="62.0" text="Domenica">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="back_button" layoutX="28.0" layoutY="27.0" mnemonicParsing="false" onAction="#goBack" prefHeight="24.0" prefWidth="59.0" text="Back">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="prenota_button" cancelButton="true" layoutX="404.0" layoutY="519.0" mnemonicParsing="false" text="Prenota">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
