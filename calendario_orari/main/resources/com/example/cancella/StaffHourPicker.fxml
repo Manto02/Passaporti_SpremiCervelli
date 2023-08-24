@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="489.0" prefWidth="734.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cancella.StaffHourPicker">
+   <children>
+      <TableView fx:id="table" layoutX="151.0" layoutY="38.0" prefHeight="306.0" prefWidth="433.0">
+        <columns>
+          <TableColumn fx:id="orari_column" prefWidth="159.0" text="orari" />
+          <TableColumn fx:id="disponibilita_column" prefWidth="273.0" text="Disponibilità" />
+        </columns>
+      </TableView>
+      <Button fx:id="prenota_button" layoutX="333.0" layoutY="436.0" mnemonicParsing="false" onAction="#prenota" text="prenota" />
+      <Label fx:id="orari_label" layoutX="155.0" layoutY="350.0" prefHeight="56.0" prefWidth="426.0" text="non hai selezionato orari" textAlignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

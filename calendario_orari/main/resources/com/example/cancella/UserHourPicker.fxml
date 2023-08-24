@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="528.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cancella.UserHourPicker">
+   <children>
+      <TableView fx:id="table" layoutX="87.0" layoutY="14.0" prefHeight="340.0" prefWidth="433.0">
+        <columns>
+          <TableColumn fx:id="orari_column" prefWidth="125.0" text="orari" />
+          <TableColumn fx:id="disponibilita_column" prefWidth="166.0" text="Disponibilità" />
+        </columns>
+      </TableView>
+      <Button fx:id="prenota_button" layoutX="254.0" layoutY="456.0" mnemonicParsing="false" onAction="#prenota" prefHeight="45.0" prefWidth="92.0" text="prenota" />
+      <Label fx:id="orari_label" contentDisplay="CENTER" layoutX="87.0" layoutY="375.0" prefHeight="33.0" prefWidth="433.0" text="non hai selezionato una data" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
