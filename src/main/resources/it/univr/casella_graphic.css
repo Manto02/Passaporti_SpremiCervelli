@@ -1,0 +1,15 @@
+
+.pane{
+    -fx-padding: 12;
+    -fx-border-style: solid inside;
+    -fx-border-width: 2;
+    -fx-border-insets: 3;
+    -fx-border-radius: 3;
+    -fx-border-color: Violet;
+    -fx-background-size: 30%;
+}
+.text{
+    -fx-font-size: 20;
+    -fx-font-family: "Noto Sans Cherokee";
+    -fx-font-style: italic;
+}

@@ -5,6 +5,7 @@ module com.example.progettosi {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
 
-    opens com.example.progettosi to javafx.fxml;
-    exports com.example.progettosi;
+    opens it.univr to javafx.fxml;
+    exports it.univr;
+
 }

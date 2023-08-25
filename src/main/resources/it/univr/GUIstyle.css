@@ -1,0 +1,116 @@
+#pane{
+    -fx-background-color: linear-gradient(from 41px 34px to 50px 50px, reflect, lightcyan,white);
+}
+
+#frontpane{
+    -fx-background-color: green,white,red,radial-gradient(focus-distance 15% , center 50% 50% , radius 70% , coral, springgreen);
+    -fx-background-insets: 0,5,10,15;
+
+    -fx-border-color: derive(slateblue, 36%); /* set border to red*/
+    -fx-border-width: 2;
+}
+
+
+.text-field {
+
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 14;
+    -fx-border-width: 3;
+    -fx-text-alignment: left;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+
+
+}
+
+.password-field{
+
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 14;
+    -fx-border-width: 3;
+    -fx-text-alignment: left;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+
+}
+.password-field .text{
+    -fx-font-size: 1;
+}
+
+
+.button{
+    -fx-background-color: #a9a9a9 , #a9a9 , white;
+    -fx-border-color: #8f9eb8;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 6;
+    -fx-padding : 5;
+
+}
+.label{
+    -fx-alignment: center;
+    -fx-text-fill: black;
+}
+
+.outline.label .text{
+    -fx-fill: grey;
+    -fx-stroke: green;
+    -fx-stroke-width: 1px;
+}
+
+.check-box .box{
+    -fx-background-color: #a9a9a9 , #a9a9 , #a9a;
+    -fx-border-color: #8f9eb8;
+    -fx-border-width: 3;
+
+}
+
+.check-box{
+    -fx-background-radius: 15;
+
+
+}
+.check-box >.box{
+    -fx-padding: -2px;
+}
+.check-box:selected .mark{
+
+    -fx-background-color: white;
+}
+.check-box:selected .box{
+    -fx-background-color:#c8e39f ;
+}
+
+.choice-box{
+    -fx-background-color: #a9a9a9 , #a9a9 , orange;
+    -fx-border-color: white;
+    -fx-border-radius: 15;
+    -fx-background-radius: 16;
+    -fx-border-width: 3;
+    -fx-text-alignment: left;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}
+
+.choice-box .context-menu{
+    -fx-background-color: orange;
+    -fx-border-radius: 15;
+    -fx-background-radius: 14;
+}
+
+.choice-box .menu-item:focused{
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-background-color: derive(orange,40%);
+    -fx-border-color: derive(orangered,20%);
+    -fx-border-width: 3;
+}
+
+.toggle-button{
+    -fx-background-image: url('resized_eye.jpg');
+
+    -fx-background-size: 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
