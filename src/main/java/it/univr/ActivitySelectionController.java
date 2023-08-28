@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -18,17 +19,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ActivitySelectionController implements Initializable {
-    @FXML
+
     boolean staff;
     @FXML
-    ChoiceBox<String> activity_selection;
+    ComboBox<String> activity_selection;
     @FXML
-    ChoiceBox<String> type_selection;
+    ComboBox<String> type_selection;
     @FXML
-    ChoiceBox<String> place_selection;
+    ComboBox<String> place_selection;
     @FXML
     Label must_insert_placeactivity;
-    String activity,place;
+    String activity, place, tipo;
     Parent root;
     Scene scene;
     Stage stage;
@@ -55,7 +56,7 @@ public class ActivitySelectionController implements Initializable {
             "Ferrara"
     };
     List<String> type = new ArrayList<>(){{
-        add("Ritiro nuovo");
+        add("Ritiro");
         add("Rilascio");
     }};
     List<String> activities = new ArrayList<String>(){
@@ -71,6 +72,8 @@ public class ActivitySelectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         type_selection.getItems().addAll(type);
+        type_selection.setPromptText("Tipologia Appuntamento");
+        
         activity_selection.getItems().addAll(activities);
         activity_selection.setOnAction(actionEvent->GetActivity());
         place_selection.getItems().addAll(luoghi);
@@ -78,17 +81,21 @@ public class ActivitySelectionController implements Initializable {
         if(staff == true){
             place_selection.setVisible(false);
         }
-        activity_selection.visibleProperty().bind(type_selection.valueProperty().isNotEqualTo("Ritiro nuovo"));
+        activity_selection.visibleProperty().bind(type_selection.valueProperty().isNotEqualTo("Ritiro"));
 
     }
 
     protected  String GetActivity(){
         if(activity_selection.isVisible())
-            this.activity = type_selection.getValue()+activity_selection.getValue();
+            this.activity = activity_selection.getValue();
         else
-            this.activity = type_selection.getValue();
+            this.activity = "nuovo";
         System.out.println(this.activity);
         return activity;
+    }
+    protected String GetType(){
+        this.tipo = type_selection.getValue();
+        return tipo;
     }
 
     protected String GetPlace(){
@@ -102,15 +109,17 @@ public class ActivitySelectionController implements Initializable {
     @FXML
     protected void NextPage(ActionEvent event) throws IOException {
         activity = this.GetActivity();
+        tipo = this.GetType();
         place = this.GetPlace();
         if(!staff) {
-            if (activity!=null && place != null) {
+            if (activity!=null && place != null && tipo != null) {
                 must_insert_placeactivity.setVisible(false);
                 FXMLLoader loader = new FXMLLoader((getClass().getResource("UserDatePicker.fxml")));
                 root = loader.load();
                 UserDatePicker controller = loader.getController();
                 controller.getPlace(place);
                 controller.getActivity(activity);
+                controller.getType(tipo);
                 controller.CreateCalendar();
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 scene = new Scene(root);

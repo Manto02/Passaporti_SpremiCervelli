@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
 
@@ -41,6 +43,11 @@ public class LoginController implements Initializable {
     CheckBox staff_check;
     @FXML
     Label label;
+    @FXML
+    Button info_button;
+    Tooltip tooltip = new Tooltip("Se è la prima volta che " +
+            "\n accedi al sito della questura," +
+            "\n devi registrarti col tasto sotto");
     private boolean staff = false ;
     private Stage stage;
     private Scene scene;
@@ -121,6 +128,8 @@ public class LoginController implements Initializable {
         password_cittadino.visibleProperty().bind(password_show.selectedProperty().not());
         password_text.managedProperty().bind(password_show.selectedProperty());
         password_text.visibleProperty().bind(password_show.selectedProperty());
+        info_button.setTooltip(tooltip);
+
 
     }
 

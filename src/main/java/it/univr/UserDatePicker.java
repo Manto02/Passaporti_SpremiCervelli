@@ -53,7 +53,7 @@ public class UserDatePicker implements Initializable {
     @FXML
     private Label selected_date_label;
 
-    private String place, activity, date;
+    private String place, activity, date, type;
 
     private boolean just_changed_month = false;
     private Rectangle selected_rectangle = new Rectangle(); // mi serve per la selezione dei giorni usa tmp_date
@@ -68,7 +68,7 @@ public class UserDatePicker implements Initializable {
 
     Integer[] future_years = {currentYearMonth.getYear(), currentYearMonth.getYear()+1,currentYearMonth.getYear()+2,
             currentYearMonth.getYear()+3};
-    double cellWidth = 100, cellHeight = 50;
+    double cellWidth = 90, cellHeight = 45;
     ArrayList<Label> list_day_labels = new ArrayList<>();
     ArrayList<StackPane> list_cell = new ArrayList<>();
     AppointmentDatabase appointment_database_access = new AppointmentDatabase();
@@ -76,15 +76,29 @@ public class UserDatePicker implements Initializable {
     List<Appointment> available_appointments;
     List<Booking> bookings;
     public void CreateCalendar() {
+        ArrayList<String> param = new ArrayList<String>(){
+            {
+                add("APPUNTAMENTO");
+                add("TIPOLOGIA_APPUNTAMENTO");
+                add("LUOGO");
 
+            }
+        };
+        ArrayList<String> compare = new ArrayList<String>(){
+            {
+                add(type);
+                add(activity);
+                add(place);
+            }
+        };
         month_label.setText(String.valueOf(YearMonth.of(chosenYear, chosenMonth)));
 
-        available_appointments = appointment_database_access.selectFilteredData(appointment_database_access.getTableName(),"=","LUOGO",place);
-        bookings = booking_database_access.selectFilteredData(booking_database_access.getTableName(),"=","LUOGO",place);
+        available_appointments = appointment_database_access.selectFilteredDataMultiple(appointment_database_access.getTableName(),"=",param,compare);
+        /*bookings = booking_database_access.selectFilteredData(booking_database_access.getTableName(),"=","LUOGO",place);
         for(Booking a: bookings){
             LocalDate date = Data.dateFormat(a.getDate());
             dateColorMap.put(date,Color.YELLOW);
-        }
+        }*/
         for(Appointment a : available_appointments){
             LocalDate date = Data.dateFormat(a.getDate());
             dateColorMap.put(date,Color.GREEN);
@@ -106,10 +120,14 @@ public class UserDatePicker implements Initializable {
 
             //* BACKGROUND
             StackPane cell = new StackPane();
+            cell.setPrefSize(5,5);
             list_cell.add(cell);
+            cell.getStyleClass().add("calendar-cell");
             cell.setPrefSize(cellWidth, cellHeight);
             Color color = getColorHex(date);
-            Rectangle colorRect = new Rectangle(cellWidth, cellHeight, color);
+            Rectangle colorRect = new Rectangle(cellWidth*0.9, cellHeight*0.9, color);
+            colorRect.autosize();
+            colorRect.setId("rectangle");
             cell.getChildren().add(colorRect);
 
 
@@ -222,6 +240,7 @@ public class UserDatePicker implements Initializable {
             Scene scene = new Scene(fxmlLoader.load());
             UserHourPicker controller = fxmlLoader.getController();
             controller.setDatePlace(date,place);
+            controller.setAppointment(type,activity);
             controller.buildTable();
             stage.setTitle("Calendario!");
             stage.setScene(scene);
@@ -239,6 +258,8 @@ public class UserDatePicker implements Initializable {
     protected void getActivity(String activity){
         this.activity = activity;
     }
+
+    protected void getType(String type){    this.type = type;   }
 
 }
 /*

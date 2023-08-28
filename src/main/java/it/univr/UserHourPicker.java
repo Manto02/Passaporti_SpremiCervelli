@@ -35,6 +35,8 @@ public class UserHourPicker {
     private AppointmentDatabase appointment_database_access = new AppointmentDatabase();
 
     private String place, activity,date;
+    private String type;
+
     public static class HourSlot  {
         private final SimpleStringProperty orari;
         private final boolean disponibilita;
@@ -89,13 +91,19 @@ public class UserHourPicker {
                 new HourSlot("16:00", true)
                 */// Add more data as needed
         );
-        ArrayList<String> param = new ArrayList<String>(){{
-            add("LUOGO");
-            add("DATA");
-        }
+        ArrayList<String> param = new ArrayList<String>(){
+            {
+                add("APPUNTAMENTO");
+                add("TIPOLOGIA_APPUNTAMENTO");
+                add("LUOGO");
+                add("DATA");
+            }
         };
+
         ArrayList<String> compare = new ArrayList<String>(){
             {
+                add(type);
+                add(activity);
                 add(place);
                 add(date);
             }
@@ -153,5 +161,9 @@ public class UserHourPicker {
     protected void setDatePlace(String date,String place){
         this.date = date;
         this.place =place;
+    }
+    protected void setAppointment(String type, String activity){
+        this.type = type;
+        this.activity = activity;
     }
 }
